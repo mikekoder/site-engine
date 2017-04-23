@@ -1,0 +1,21 @@
+﻿@model Page
+@{
+    Layout = "~/Pages/Shared/_PagesLayout.cshtml";
+    var blog = Model.Parent as Blog;
+    var tags = Site.Pages.ChildrenOf(blog).Where(p => p.Tags != null).SelectMany(p => p.Tags).Distinct();
+    var categories = Site.Pages.ChildrenOf(blog).Where(p => p.Categories != null).SelectMany(p => p.Categories).Distinct().OrderBy(c => c);
+}
+<div class="row">
+    <div class="col-sm-8">
+        @RenderBody()
+    </div>
+    <div class="col-sm-4">
+        <h4>Categories</h4>
+        <ul>
+            @foreach (var category in categories)
+            {
+                <li><a href="@(blog)@(blog.CategoriesDirectory)/@(category)">@category</a></li>
+            }
+        </ul>
+    </div>
+</div>
