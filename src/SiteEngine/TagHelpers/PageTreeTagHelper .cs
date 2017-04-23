@@ -14,6 +14,9 @@ namespace SiteEngine.TagHelpers
         public string PageId { get; set; }
         public string ExcludeIds { get; set; }
         public int? Levels { get; set; }
+        public Page Selected { get; set; }
+        public string SelectedId { get; set; }
+        public bool Self { get; set; }
 
         private readonly Site site;
         public PageTreeTagHelper(Site site)
@@ -25,29 +28,43 @@ namespace SiteEngine.TagHelpers
             output.TagName = "ul";
             output.TagMode = TagMode.StartTagAndEndTag;
 
-            if(Page == null && !string.IsNullOrWhiteSpace(PageId))
-            {
-                Page = site.Pages.SingleOrDefault(p => p.Id == PageId);
-            }
+            Page = Page ?? (!string.IsNullOrWhiteSpace(PageId) ? site.Pages.SingleOrDefault(p => p.Id == PageId) : null);
+            Selected = Selected ?? (!string.IsNullOrWhiteSpace(SelectedId) ? site.Pages.SingleOrDefault(p => p.Id == SelectedId) : null);
+
             if(Page == null)
             {
                 output.Content.SetContent($"Sivua {PageId} ei löytynyt");
             }
 
             var buffer = new StringBuilder();
-            Write(Page, 1, buffer);
-            
+            if (Self)
+            {
+                Write(new[] { Page }, 0, buffer);
+            }
+            else
+            {
+                Write(site.Pages.ChildrenOf(Page).OrderBy(p => p.Order), 1, buffer);
+            }
+
             output.Content.SetHtmlContent(buffer.ToString());
         }
-        private void Write(Page parent, int level, StringBuilder buffer)
+        private void Write(IEnumerable<Page> pages, int level, StringBuilder buffer)
         {
-            foreach (var page in site.Pages.ChildrenOf(parent))
+            foreach (var page in pages)
             {
-                buffer.AppendLine($@"<li><a href=""{page.Path}"">{page.Title}</a></li>");
+                if(page == Selected)
+                {
+                    buffer.AppendLine($@"<li class=""selected""><a href=""{page.Path}"">{page.Title}</a></li>");
+                }
+                else
+                {
+                    buffer.AppendLine($@"<li><a href=""{page.Path}"">{page.Title}</a></li>");
+                }
                 if (Levels == null || Levels.Value > level)
                 {
+                    var children = site.Pages.ChildrenOf(page).OrderBy(p => p.Order);
                     buffer.AppendLine("<ul>");
-                    Write(page, level + 1, buffer);
+                    Write(children, level + 1, buffer);
                     buffer.AppendLine("</ul>");
                 }
             }

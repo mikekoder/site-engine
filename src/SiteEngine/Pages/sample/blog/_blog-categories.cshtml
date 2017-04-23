@@ -1,0 +1,11 @@
+﻿@model ICategoryContext
+@{
+    var summary = Model.GetCategoriesSummary(Site);
+}
+<h4>Categories</h4>
+<ul>
+    @foreach (var category in summary.Categories)
+            {
+        <li><a href="@Model.CategoryPath(category.Category)">@category.Category (@category.PageCount)</a></li>
+    }
+</ul>

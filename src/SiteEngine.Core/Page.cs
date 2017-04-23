@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SiteEngine
 {
-    public class Page
+    public class Page : IPage
     {
         public string Id { get; set; }
         public string Slug { get; set; }
@@ -50,6 +50,7 @@ namespace SiteEngine
         public int? MenuPosition { get; set; }
         public string Excerpt { get; set; }
         public bool Draft { get; set; }
+        public int Order { get; set; }
 
         public virtual object GetSubModel(string relativePath, Site site)
         {

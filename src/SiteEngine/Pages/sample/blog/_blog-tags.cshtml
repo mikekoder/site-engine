@@ -1,0 +1,11 @@
+﻿@model ITagContext
+@{
+    var summary = Model.GetTagsSummary(Site);
+}
+<h4>Tags</h4>
+<ul>
+    @foreach (var tag in summary.Tags)
+            {
+        <li><a href="@Model.TagPath(tag.Tag)">@tag.Tag (@tag.PageCount)</a></li>
+    }
+</ul>

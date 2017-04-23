@@ -31,10 +31,32 @@ namespace SiteEngine.Controllers
             {
                 return View("NotFound");
             }
+            
             if(page.Path != path)
             {
+                bool resolved = false;
+                object subContent = null;
                 var relativePath = "/" + path.Substring(page.Path.Length);
-                var subContent = page.GetSubModel(relativePath, repository);
+
+                
+                if (!resolved && page is ICategoryContext && (page as ICategoryContext).TryResolveCategoryPath(relativePath, repository, out subContent))
+                {
+                    resolved = true;
+                }
+                if (!resolved && page is ITagContext && (page as ITagContext).TryResolveTagPath(relativePath, repository, out subContent))
+                {
+                    resolved = true;
+                }
+                if (!resolved && page is IArchiveContext && (page as IArchiveContext).TryResolveArchivePath(relativePath, repository, out subContent))
+                {
+                    resolved = true;
+                }
+
+                if (!resolved)
+                {
+                    return View("NotFound");
+                }
+
                 ViewData["SubModel"] = subContent;
             }
             return View(page.ViewPath, page);

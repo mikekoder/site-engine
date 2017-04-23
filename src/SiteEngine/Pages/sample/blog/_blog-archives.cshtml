@@ -1,0 +1,11 @@
+﻿@model IArchiveContext
+@{ 
+    var summary = Model.GetArchivesSummary(Site);
+}
+<h4>Archives</h4>
+<ul>
+    @foreach (var archive in summary.Archives)
+    {
+        <li><a href="@Model.ArchivePath(archive.Year,archive.Month)">@archive.Month.ToString("d2") / @archive.Year (@archive.PageCount)</a></li>
+    }
+</ul>

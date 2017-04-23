@@ -9,6 +9,7 @@ namespace SiteEngine.TagHelpers
     [HtmlTargetElement("page-link", Attributes="page-id")]
     public class PageLinkTagHelper : TagHelper
     {
+        public Page Page { get; set; }
         public string PageId { get; set; }
 
         private readonly Site site;
@@ -18,7 +19,7 @@ namespace SiteEngine.TagHelpers
         }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            var page = site.Pages.SingleOrDefault(p => p.Id == PageId);
+            var page = Page ?? site.Pages.SingleOrDefault(p => p.Id == PageId);
             if(page == null)
             {
                 output.TagName = "span";
