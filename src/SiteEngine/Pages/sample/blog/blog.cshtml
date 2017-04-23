@@ -1,0 +1,86 @@
+﻿@*
+    {
+        id: "blog",
+        parent: "home",
+        slug: "blog",
+        title: "Blog",
+        menuPosition: 1,
+        archives: { directory: "", appendChildPath: true },
+        categorization: { directory: "categories" },
+        tagging: { directory: "tags" }
+    }
+*@
+@model Blog
+@{
+    Layout = "~/Pages/Shared/_PagesLayout.cshtml";
+
+
+    IEnumerable<Page> posts;
+    if(SubContent is FilteredChildrenPage)
+    {
+        posts = (SubContent as FilteredChildrenPage).Results;
+    }
+    else
+    {
+        posts = Site.Pages.ChildrenOf(Model);
+    }
+}
+<div class="row">
+    <div class="col-sm-8">    
+        @if (SubContent is ArchivePage)
+        {
+            var archivePage = SubContent as ArchivePage;
+            if (archivePage.Month.HasValue)
+            {
+                <h2>@Model.Title &gt; @archivePage.Month.Value.ToString("d2") / @archivePage.Year</h2>
+            }
+            else
+            {
+                <h2>@Model.Title &gt; @archivePage.Year</h2>
+            }
+        }
+        else if (SubContent is CategoryPage)
+        {
+            var categoryPage = SubContent as CategoryPage;
+            <h2>@Model.Title &gt; @categoryPage.Category</h2>
+        }
+        else if (SubContent is TagPage)
+        {
+            var tagPage = SubContent as TagPage;
+            <h2>@Model.Title &gt; @tagPage.Tag</h2>
+        }
+        else
+        {
+            <h2>@Model.Title</h2>
+        }
+        @foreach (var post in posts.OrderByDescending(p => p.Published))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading"><a href="@post.Path">@post.Title</a></div>
+                <div class="panel-body">
+                    @post.Excerpt
+                </div>
+                <div class="panel-footer">
+                    <span><i class="glyphicon glyphicon-time"></i> @post.Published.ToString("dd.MM.yyyy")</span>
+                    <span><i class="glyphicon glyphicon-user"></i> @post.Author</span>
+                    @if (post.Categories != null && post.Categories.Any())
+                    {
+                        <span>
+                            <i class="glyphicon glyphicon-folder-open"></i>&nbsp;
+                            @foreach (var category in post.Categories)
+                    {
+                                <a href="@Model.CategoryPath(category)">@category</a>
+                            }
+                        </span>
+                    }
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="col-sm-4">
+        @Html.Partial("_blog-categories.cshtml", Model)
+        @Html.Partial("_blog-tags.cshtml", Model)
+        @Html.Partial("_blog-archives.cshtml", Model)
+    </div>
+</div>

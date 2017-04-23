@@ -7,5 +7,11 @@
 @{
     Layout = "~/Pages/Shared/_PagesLayout.cshtml";
 }
-List of child pages
-<page-tree page="@Model" class="test" />
+@model Page
+<div class="row">
+    <div class="col-sm-12">
+        <h2>@Model.Title</h2>
+        List of child pages
+        <page-tree page="@Model" class="test" />
+    </div>
+</div>
