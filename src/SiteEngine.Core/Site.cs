@@ -89,8 +89,8 @@ namespace SiteEngine
             using (var reader = new StreamReader(stream))
             {
                 string line;
-                bool comment = false;
-                bool json = false;
+                bool readingJson = false;
+                bool jsonRead = false;
                 var buffer = new StringBuilder();
                 string type = null;
                 while ((line = reader.ReadLine()) != null)
@@ -101,24 +101,23 @@ namespace SiteEngine
                         type = line.Substring(modelIndex + 6).Trim();
                     }
 
-                    if (!json && !comment)
-                    {
-                        
+                    if (!jsonRead && !readingJson)
+                    {        
                         var index = line.IndexOf("@*");
                         if (index >= 0)
                         {
                             buffer.AppendLine(line.Substring(index + 2));
-                            comment = true;
+                            readingJson = true;
                         }
                     }
-                    else if(comment)
+                    else if(readingJson)
                     {
                         var index = line.IndexOf("*@");
                         if (index >= 0)
                         {
                             buffer.AppendLine(line.Substring(0, index));
-                            json = true;
-                            comment = false;
+                            jsonRead = true;
+                            readingJson = false;
                         }
                         else
                         {
@@ -126,13 +125,23 @@ namespace SiteEngine
                         }
                     }
                 }
-                if(buffer.Length == 0)
+                var json = buffer.ToString().Trim();
+                if(json.Length == 0)
                 {
                     return null;
                 }
 
+                if (!json.StartsWith("{"))
+                {
+                    json = "{" + json;
+                }
+                if (!json.EndsWith("}"))
+                {
+                    json += "}";
+                }
+
                 var pageType = !string.IsNullOrWhiteSpace(type) ? pageTypes.SingleOrDefault(t => t.FullName.EndsWith(type)) : typeof(Page);
-                var page = JsonConvert.DeserializeObject(buffer.ToString(), pageType ?? typeof(Page)) as Page;
+                var page = JsonConvert.DeserializeObject(json, pageType ?? typeof(Page)) as Page;
                 page.ViewPath = "~/" + directory.Split(new[] { '\\' }, StringSplitOptions.RemoveEmptyEntries).Last() + file.FullName.Substring(directory.Length).Replace('\\','/');
                 return page;
             }
