@@ -20,8 +20,8 @@ namespace SiteEngine.TagHelpers
             output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Clear();
-            output.Content.SetHtmlContent($@"<a href=""#"" data-toggle=""modal"" data-target=""#{id}""><img src=""{Src}"" width=""{Width}"" height=""{Height}"" /></a>
-
+            output.Content.SetHtmlContent($@"
+<a href=""#"" data-toggle=""modal"" data-target=""#{id}""><img src=""{Src}"" width=""{Width}"" height=""{Height}"" /></a>
 <div id=""{id}"" class=""modal fade"" tabindex=""-1"" role=""dialog"">
   <div class=""modal-dialog"">
     <div class=""modal-content"">
@@ -29,7 +29,8 @@ namespace SiteEngine.TagHelpers
             <img src=""{Src}"" class=""img-responsive"">
         </div>
     </div>
-  </div>");
+  </div>
+</div>");
         }
     }
 }
