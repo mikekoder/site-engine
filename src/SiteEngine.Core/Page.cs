@@ -32,8 +32,14 @@ namespace SiteEngine
                 }
                 else if(Parent != null)
                 {
-                    return $"{Parent.Path}{Slug}/";
-
+                    if (Parent is IArchiveContext && ((Parent as IArchiveContext).Archives?.AppendChildPath).Value)
+                    {
+                        return $"{Parent.Path}{Published.Year}/{Published.Month:d2}/{Slug}/";
+                    }
+                    else
+                    {
+                        return $"{Parent.Path}{Slug}/";
+                    }
                 }
                 else if (!string.IsNullOrWhiteSpace(Slug))
                 {
