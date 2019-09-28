@@ -12,9 +12,14 @@
     }
 *@
 @model Page
-<strong>Code snippet</strong><br />
-<code>var list = new List<Page>();</code>
-<strong>Link to another page using page title as text</strong><br />
-<page-link page-id="home" /><br />
-<strong>Link to another page with link text defined</strong><br />
+<md>
+**Code snippet**
+```
+var list = new List<Page>();
+```
+    
+**Link to another page using page title as text**  
+<page-link page-id="home" />  
+**Link to another page with link text defined**  
 <page-link page-id="blog">To the blog</page-link>
+</md>

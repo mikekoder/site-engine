@@ -7,6 +7,7 @@ namespace SiteEngine
 {
     public class Constants
     {
+        public const string SiteName = "";
         public const string AtSign = "&#64;";
     }
 }

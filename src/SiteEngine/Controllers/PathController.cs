@@ -16,7 +16,7 @@ namespace SiteEngine.Controllers
         }
         public IActionResult Resolve(string path)
         {
-            path = path ?? "/";
+            path ??= "/";
             if (!path.StartsWith("/"))
             {
                 path = "/" + path;
