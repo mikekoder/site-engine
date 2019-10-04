@@ -1,0 +1,76 @@
+﻿@*
+  {
+      id: "",
+      parent: "fullstack-fi",
+      order: 104,
+      slug: "js-yhteystiedot-vue",
+      title: "JavaScript - Yhteystiedot Vue.js",
+      author: "Mike Koder",
+      published: "2019-10-02",
+      categories: ["javascript","vue.js"],
+      tags: [],
+      excerpt: ""
+  }
+*@
+@model Page
+<md>
+  Tässä osassa toteutamme aiemman yhteystiedot-sovelluksen vue.js:ää käyttäen.
+
+  ## Kehitysympäristö
+  Asenna ensin [node.js](https://nodejs.org/en/) (uusin versio).  
+  Voit tarkistaa asennetun version nodesta ja npm:stä
+  ```shell
+  C:\> node -v
+  v10.16.0
+  C:\> npm -v
+  6.9.0
+  ```
+
+  Asenna seuraavaksi vue CLI
+  ```
+  npm install -g @@vue/cli
+  ```
+
+  Voit tarkistaa asennetun version
+  ```shell
+  C:\> vue --version
+  3.6.3
+  ```
+
+  ## Projektin luominen
+  Voit luoda vue projektin
+  ```shell
+  vue create <projektin-nimi>
+  ```
+  CLI kysyy mitä ominaisuuksia projektiin halutaan. Valitaan ominaisuudet käsin.
+  ```shell
+  ? Please pick a preset: (Use arrow keys)
+    default (babel, eslint)
+  > Manually select features  
+  ```
+
+  Tässä vaiheessa riittää valita ainoastaan *Babel*
+  ```shell 
+  ? Please pick a preset: Manually select features
+  ? Check the features needed for your project: (Press <space> to select, <a> to toggle all, <i> to invert selection)
+  > (*) Babel
+    ( ) TypeScript
+    ( ) Progressive Web App (PWA) Support
+    ( ) Router
+    ( ) Vuex
+    ( ) CSS Pre-processors
+    ( ) Linter / Formatter
+    ( ) Unit Testing
+    ( ) E2E Testing                                                                                                                          
+  ```
+
+  ```
+  ? Please pick a preset: Manually select features
+  ? Check the features needed for your project: Babel
+  ? Where do you prefer placing config for Babel, PostCSS, ESLint, etc.?
+    In dedicated config files
+  > In package.json 
+  ```
+
+
+</md>

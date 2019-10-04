@@ -1,18 +1,18 @@
 ﻿@*
     {
-        id: "blog",
+        id: "blog-fi",
         parent: "home",
-        slug: "blog",
-        title: "Blog",
+        slug: "blogi",
+        title: "Blogi",
         menuPosition: 1,
         archives: { directory: "", appendChildPath: true },
-        categorization: { directory: "categories" },
-        tagging: { directory: "tags" }
+        categorization: { directory: "kategoriat" },
+        tagging: { directory: "avainsanat" }
     }
 *@
 @model Blog
 @{
-    Layout = "~/Pages/Shared/_PagesLayout.cshtml";
+    Layout = "~/Pages/Shared/_PageLayout.cshtml";
 
 
     IEnumerable<Page> posts;
@@ -26,7 +26,7 @@
     }
 }
 <div class="row">
-    <div class="col s12 m8">    
+    <div class="col s12 m9">    
         @if (SubContent is ArchivePage)
         {
             var archivePage = SubContent as ArchivePage;
@@ -78,9 +78,9 @@
         }
 
     </div>
-    <div class="col s12 m4">
-        @await Html.PartialAsync("_blog-categories.cshtml", Model)
-        @await Html.PartialAsync("_blog-tags.cshtml", Model)
-        @await Html.PartialAsync("_blog-archives.cshtml", Model)
+    <div class="col s12 m3">
+        @await Html.PartialAsync("_Categories.cshtml", Model)
+        @await Html.PartialAsync("_Tags.cshtml", Model)
+        @await Html.PartialAsync("_Archives.cshtml", Model)
     </div>
 </div>

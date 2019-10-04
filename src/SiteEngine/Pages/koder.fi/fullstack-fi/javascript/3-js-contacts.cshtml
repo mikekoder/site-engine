@@ -1,0 +1,111 @@
+﻿@*
+  {
+      id: "",
+      parent: "fullstack-fi",
+      order: 103,
+      slug: "js-yhteystiedot",
+      title: "JavaScript - Yhteystiedot",
+      author: "Mike Koder",
+      published: "2019-10-02",
+      categories: ["javascript"],
+      tags: [],
+      excerpt: ""
+  }
+*@
+@model Page
+<md>
+  Tässä osassa toteutamme
+  <div class="calculator">
+    <table>
+      <thead>
+        <tr><th>First name</th><th>Last name</th><th>Email</th><th></th></tr>
+      </thead>
+      <tbody>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">
+            <button onclick="addRow()">Add</button>
+            <button onclick="save()">Save</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  
+</md>
+<script>
+  function addRow(firstName, lastName, email){
+    var table = document.getElementsByTagName('table')[0];
+    var body = table.getElementsByTagName('tbody')[0];
+    var row = document.createElement('tr');
+      
+    var tdFirstName = document.createElement('td');
+    var inputFirstName = document.createElement('input');
+    inputFirstName.setAttribute('type', 'text');
+    inputFirstName.value = firstName || '';
+    tdFirstName.appendChild(inputFirstName);
+    row.appendChild(tdFirstName);
+      
+    var tdLastName = document.createElement('td');
+    var inputLastName = document.createElement('input');
+    inputLastName.setAttribute('type', 'text');
+    inputLastName.value = lastName || '';
+    tdLastName.appendChild(inputLastName);
+    row.appendChild(tdLastName);
+      
+    var tdEmail = document.createElement('td');
+    var inputEmail = document.createElement('input');
+    inputEmail.setAttribute('type', 'email');
+    inputEmail.value = email || '';
+    tdEmail.appendChild(inputEmail);
+    row.appendChild(tdEmail);
+      
+    var tdDelete = document.createElement('td');
+    var buttonDelete = document.createElement('button');
+    buttonDelete.innerHTML = 'Delete';
+    buttonDelete.onclick = function(){
+      var row = this.closest('tr');
+      var body = row.closest('tbody');
+      body.removeChild(row);
+    }
+    tdDelete.appendChild(buttonDelete);
+    row.appendChild(tdDelete);
+        
+    body.appendChild(row);
+  }
+    
+  function save(){
+    var table = document.getElementsByTagName('table')[0];
+    var body = table.getElementsByTagName('tbody')[0];
+    var rows = body.getElementsByTagName('tr');
+    var data = [];
+    for(var i = 0; i < rows.length; i++){
+      var inputs = rows[i].getElementsByTagName('input');
+      data.push({
+        firstName: inputs[0].value,
+        lastName: inputs[1].value,
+        email: inputs[2].value
+      });
+    }
+
+    localStorage.setItem('contacts', JSON.stringify(data));
+  }
+    
+  function load(){
+    var json = localStorage.getItem('contacts');
+    var data;
+    if (json) {
+      data = JSON.parse(json);
+    }
+    else {
+      data = [{ firstName: 'John', lastName: 'Doe', email: 'john.doe@domain.com' }];
+    }
+    data.forEach(contact => {
+        addRow(contact.firstName, contact.lastName, contact.email);
+      });
+  }
+    
+  load();
+</script>

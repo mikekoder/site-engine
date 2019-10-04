@@ -1,0 +1,200 @@
+﻿@*
+  {
+      id: "",
+      parent: "fullstack-fi",
+      order: 101,
+      slug: "js-laskin",
+      title: "JavaScript - Laskin",
+      author: "Mike Koder",
+      published: "2019-10-02",
+      categories: ["javascript"],
+      tags: [],
+      excerpt: ""
+  }
+*@
+@model Page
+<md>
+  Tässä ensimmäisessä tutoriaalissa teemme seuraavanlaisen laskimen
+  <div class="calculator">
+    <input id="num1" type="number" value="1" step="0.1" />
+    <select id="op">
+      <option>+</option>
+      <option>-</option>
+    </select>
+    <input id="num2" type="number" value="1" step="0.1" />
+    <button onclick="calculate()">=</button>
+    <span id="result"></span>
+  </div>
+
+  ```html
+  <html>
+    <body>
+      <input id="num1" type="number" value="1" step="0.1" />
+      <select id="op">
+        <option>+</option>
+        <option>-</option>
+      </select>
+      <input id="num2" type="number" value="1" step="0.1" />
+      <button onclick="calculate()">=</button>
+      <span id="result" />
+
+      <script>
+        function calculate() {
+          var num1 = parseFloat(document.getElementById('num1').value);
+          var op = document.getElementById('op').value;
+          var num2 = parseFloat(document.getElementById('num2').value);
+          var result;
+          if (op === '+') {
+            result = num1 + num2;
+          }
+          else if (op === '-') {
+            result = num1 - num2;
+          }
+          else {
+            result = 'Unknown operator';
+          }
+          document.getElementById('result').innerHTML = result;
+        }
+      </script>
+    </body>
+  </html>
+  ```
+  Käydään nyt läpi koodi
+
+  ## HTML
+
+  ```html
+  <input id="num1" type="number" value="1" step="0.1" />
+  ```
+  **input** on html-elementti, jolla voi muokata arvoa. Tässä sille on asetettu attribuutit id, type, value ja step. Type määrittelee millaisen arvon elementti sisältää, 
+  value kertoo elementin arvon ja step kuinka suurin askelin arvoa voi muokata.  
+
+  ```
+  <select id="op">
+    <option>+</option>
+    <option>-</option>
+  </select>
+  ```
+  **select** on pudotusvalikko (/monivalinta) ja sen vaihtoehdot on lueteltu **option**-elementeillä.  
+  ```
+  <button onclick="calculate()">=</button>
+  ```
+  **button** on painike ja sen **onclick** tapahtumaan on annettu käsittelijäksi funktio **calculate**. Eli painiketta klikatessa tuo funktio suoritetaan.
+  ```
+  <span id="result" />
+  ```
+  **span**-elementti ei oikeastaan tarjoa mitään erikoista toiminnallisuutta. Tässä sen tehtävä toimia paikkana laskutoimituksen vastaukselle.
+
+  ## JavaScript
+  JavaScript-koodit tulevat **script**-elementteihin.
+  
+  ```
+  function calculate() { ... }
+  ```
+  Määrittelee funktion *calculate*. Funktion sisältö muodostuu **{** ja **}** muodostamasta lohkosta. Tämä on se, jota kutsutaan painiketta klikatessa.
+  
+  ```
+  var num1 = parseFloat(document.getElementById('num1').value);
+  ```
+  Lukee arvon elementistä, jolla *id="num1"*, muuttaa sen desimaaliluvuksi ja sijoittaa muuttujaan *num1*.    
+  **var num1** esittelee muuttujan nimeltään *num1*.  
+  **=** on sijoitusoperaattori eli sijoittaa vasemmalla olevaan muuttujaan oikealta tulevan arvon.  
+  **parseFloat(...)** on metodi, joka muuttaa merkkijonon desimaaliluvuksi.  
+  **document** on muuttuja, jossa on tallessa sivun rakenne (DOM).  
+  **getElementById(...)** em. *document*-objektin metodi, joka etsii elementin annetulla id:llä.  
+  **.value** em. elementin arvo (syötetty teksti tässä tapauksessa).  
+  **;** päättää lauseen.
+
+  ```
+  if (op === '+') { ... }
+  ```
+  Tarkistaa onko *op*-muuttujan arvo *+*. Jos on, suorittaa lohkon.  
+  **if(ehto) { ... }** lohko suoritetaan, jos annettu ehto täyttyy.  
+  **===** vertailee onko kummallakin puolella sama arvo (true=tosi, false=epätosi).
+
+  ```
+  result = num1 + num2;
+  ```
+  Sijoittaa *result*-muuttujaan *num1* ja *num2* yhteenlaskun tuloksen.   
+  **+** yhteenlaskuoperaattori.
+
+  ```
+  else if (op === '-') {
+    result = num1 - num2;
+  }
+  ```
+  **else if** on kuten *if*, mutta ehto tarkistetaan vain, jos edellisen *if*n ehto ei ollut tosi.  
+  **-** laskee lukujen erotuksen.
+  
+  ```
+  else { ... }
+  ```
+  **else** suoritetaan, jos minkään *if*in tai *else if*in ehto ei ollut tosi.
+
+  ```
+  document.getElementById('result').innerHTML = result;
+  ```
+  Sijoittaa *result*-muuttujan arvon elementtiin, jolla *id="result"*.  
+  **innerHTML** on elementin sisältö
+
+  ## Harjoitus
+  - Lisää laskimeen kerto- ja jakolasku (operaattorit * ja /)
+  - Korvaa *if - else if - else* **switch**-lauseella
+  - Suorita laskutoimitus heti numeroiden tai operaation muuttuessa (onchange-tapahtuma)
+
+  [switch-lause](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch)  
+  [change event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/change_event)  
+
+
+  ## Lisää tietoa
+  <collapsible>
+    <div :title="Erilaisia inputteja" :icon="info_outline">
+      <html-snippet><input type="checkbox" />         </html-snippet>
+      <html-snippet><input type="color" />            </html-snippet>
+      <html-snippet><input type="date" />             </html-snippet>
+      <html-snippet><input type="datetime-local" />   </html-snippet>
+      <html-snippet><input type="email" />            </html-snippet>
+      <html-snippet><input type="file" />             </html-snippet>
+      <html-snippet><input type="month" />            </html-snippet>
+      <html-snippet><input type="number" />           </html-snippet>
+      <html-snippet><input type="password" />         </html-snippet>
+      <html-snippet><input type="radio" name="pick" value="1" />
+                    <input type="radio" name="pick" value="2" /></html-snippet>
+      <html-snippet><input type="range" />            </html-snippet>
+      <html-snippet><input type="search" />           </html-snippet>
+      <html-snippet><input type="tel" />              </html-snippet>
+      <html-snippet><input type="text" />             </html-snippet>
+      <html-snippet><input type="time" />             </html-snippet>
+      <html-snippet><input type="url" />              </html-snippet>
+      <html-snippet><input type="week" />             </html-snippet>
+      <html-snippet><select>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        </select></html-snippet>
+      <html-snippet><select multiple>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        </select></html-snippet>
+      <html-snippet><textarea rows="3"></textarea></html-snippet>
+    </div>
+  </collapsible>
+</md>
+<script>
+  function calculate() {
+    var num1 = parseFloat(document.getElementById('num1').value);
+    var op = document.getElementById('op').value;
+    var num2 = parseFloat(document.getElementById('num2').value);
+    var result;
+    if (op === '+') {
+      result = num1 + num2;
+    }
+    else if (op === '-') {
+      result = num1 - num2;
+    }
+    else {
+      result = 'Unknown operator';
+    }
+    document.getElementById('result').innerHTML = result;
+  }
+  calculate();
+</script>

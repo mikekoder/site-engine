@@ -1,0 +1,40 @@
+﻿@*
+  {
+      id: "",
+      parent: "fullstack-fi",
+      order: 1,
+      slug: "ohjelmointi",
+      title: "Ohjelmointi",
+      author: "Mike Koder",
+      published: "2019-10-02",
+      categories: [],
+      tags: [],
+      excerpt: ""
+  }
+*@
+@model Page
+<md>
+  Ohjelmointi on toimintaohjeiden kirjoittamista tietokoneelle. 
+  Ohjelmointikielissä on erilaisia suuntauksia (paradigmoja) ja yleensä yhdestä kielestä löytyy piirteitä useammasta suuntauksesta.
+  Imperatiivinen ohjelmointi on ehkä helpoiten ymmärrettävä. Siinä komennot suoritetaan annetussa järjestyksessä. Aivan kuten valmistusohjeet resepteissä.
+
+  Alussa on suuri ratkaistava ongelma, kuten sovelluksen toteuttaminen. Ohjelmointi on käytännössä ongelman pilkkomista aina vaan pienempiin ongelmiin, kunnes jossain vaiheessa alustasta, kirjastosta tai ohjelmointikielestä löytyy ratkaisu.
+  Näistä osista kootaan ratkaisu suurempaan ongelmaan.
+
+  ## Yleisiä ohjelmoinnin käsitteitä
+  **Muuttujissa** säilytetään sovelluksen käyttämiä arvoja. 
+  Muuttujat ovat yleensä jotain **tietotyyppiä**, kuten numero tai merkkijono (=tekstiä). 
+  Eri tietotyyppiä olevilla muuttujilla voi tehdä eri asioita. Esim. *+* **operaattorilla** voi laskea numeroita yhteen tai yhdistää merkkijonoja.
+  Sen sijaan *-* operaattori laskee numeroiden erotuksen, muttei vaikuta kovin käyttökelpoiselta (tai ainakaan yksiselitteiseltä) merkkijonojen tapauksessa.
+  On usein myös tarpeen käsitellä jonkinlaista listaa arvoja. Yleinen tietotyyppi siihen tarkoitukseen on **taulukko** (array). 
+  Arvoja voi yleensä niputtaa yhteen. Näin saadaan rakenne, jossa esim. henkilöllä on tiedot etunimi, sukunimi ja osoite. 
+  Rakennetta voidaan kutsua esim. **tietueeksi** (struct) tai **objektiksi** ja sen sisältämiä tietoja **kentiksi** (field) tai **ominaisuuksiksi** (property) ohjelmointikielestä riippuen. 
+  **Funktioilla** ja **metodeilla** (function, method) toiminnallisuus voidaan pilkkoa uudelleenkäytettäviksi aliohjelmiksi.
+  **Ehto- ja valintalauseilla** jokin koodinpätkä voidaan suorittaa vain annetun ehdon täyttyessä. **Toistolauseilla** (luupit) koodinpätkää voidaan toistaa tietyn ehdon täyttymiseen saakka (esim. kaikille taulukon arvoille).
+  Käyttäjän hiirellä tai näppäimistöllä tekemät asiat aiheuttavat **tapahtumia** (event). Näihin voidaan liittää käsittelijöitä/kuuntelijoita (event handler, event listener).
+  Kaikkea ei tarvitse tietenkään tehdä itse nollasta, vaan yleensä sovelluksen voi rakentaa jonkin **alustan** (framework) päälle ja käyttää **kirjastoja** (library) yleisiin ongelmiin.
+
+  ## Tärkeimmät taidot
+  Tärkeintä on osata etsiä tietoa. Apua voi aina etsiä "```<ohjelmointikieli> <mitä yritän saavuttaa>```" haulla. Sitä tekevät päivittäin kymmeniä vuosia koodanneetkin.
+  Kehitysvälineissä on myös paljon avustavia toimintoja
+</md>
