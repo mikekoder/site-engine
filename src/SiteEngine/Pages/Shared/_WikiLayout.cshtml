@@ -1,0 +1,16 @@
+﻿@model Page
+@{
+    Layout = "~/Pages/Shared/_PageLayout.cshtml";
+    var wikihome = Site.Pages.BreadcrumpTo(Model).ElementAt(1);
+
+}
+<div class="row">
+    <div class="col s12 m8">
+        <h2>@Model.Title</h2>
+        @RenderBody()
+    </div>
+    <div class="col s12 m4">
+        <h2>Sisältö</h2>
+        <page-tree page="@wikihome" self="false" selected="@Model" />
+    </div>
+</div>

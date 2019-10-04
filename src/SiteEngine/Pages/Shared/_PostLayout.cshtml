@@ -1,0 +1,18 @@
+﻿@model Page
+@{
+    Layout = "~/Pages/Shared/_PageLayout.cshtml";
+    var blog = Model.Parent as Blog;
+
+
+}
+<div class="row">
+    <div class="col s12 m9">
+        <h2>@Model.Title</h2>
+        @RenderBody()
+    </div>
+    <div class="col s12 m3">
+        @await Html.PartialAsync("_Categories.cshtml", blog)
+        @await Html.PartialAsync("_Tags.cshtml", blog)
+        @await Html.PartialAsync("_Archives.cshtml", blog)
+    </div>
+</div>
