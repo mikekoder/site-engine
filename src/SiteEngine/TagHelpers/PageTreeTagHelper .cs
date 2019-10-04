@@ -25,7 +25,8 @@ namespace SiteEngine.TagHelpers
         }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "ul";
+            output.TagName = "div";
+            output.Attributes.SetAttribute("class", "collection");
             output.TagMode = TagMode.StartTagAndEndTag;
 
             Page = Page ?? (!string.IsNullOrWhiteSpace(PageId) ? site.Pages.SingleOrDefault(p => p.Id == PageId) : null);
@@ -52,20 +53,12 @@ namespace SiteEngine.TagHelpers
         {
             foreach (var page in pages)
             {
-                if(page == Selected)
-                {
-                    buffer.AppendLine($@"<li class=""selected""><a href=""{page.Path}"">{page.Title}</a></li>");
-                }
-                else
-                {
-                    buffer.AppendLine($@"<li><a href=""{page.Path}"">{page.Title}</a></li>");
-                }
+                buffer.AppendLine($@"<a class=""collection-item tree-item-{level}{(page == Selected ? " active": "")}"" href=""{page.Path}"">{page.Title}</a>");
+                
                 if (Levels == null || Levels.Value > level)
                 {
                     var children = site.Pages.ChildrenOf(page).OrderBy(p => p.Order);
-                    buffer.AppendLine("<ul>");
                     Write(children, level + 1, buffer);
-                    buffer.AppendLine("</ul>");
                 }
             }
         }
