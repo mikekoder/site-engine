@@ -6,16 +6,86 @@
  * Made By MaterializeCSS.com
  */
 
+.container {
+    max-width: 1200px;
+    width: 90%;
+}
+
+@media only screen and (min-width: 601px) {
+    .container {
+        width: 90%;
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    .container {
+        width: 90%;
+    }
+}
+
 .icon-block {
-  padding: 0 15px;
+    padding: 0 15px;
 }
+
 .icon-block .material-icons {
-	font-size: inherit;
+    font-size: inherit;
 }
+
 .card-action {
     color: white;
 }
+
 .card-action .material-icons {
     position: relative;
     top: 6px;
+}
+
+.container input:not([type]),
+.container input[type=date],
+.container input[type=datetime-local],
+.container input[type=email],
+.container input[type=file],
+.container input[type=month],
+.container input[type=number],
+.container input[type=password],
+.container input[type=range],
+.container input[type=search],
+.container input[type=tel],
+.container input[type=text],
+.container input[type=time],
+.container input[type=url],
+.container input[type=week],
+.container select,
+.container textarea {
+    display: inline-block;
+    width: 200px;
+    height: 24px;
+    border: 2px inset rgb(238,238,238);
+    padding: 0px 2px;
+}
+
+.container input[type=checkbox],
+.container input[type=radio],
+.container input[type=color] {
+    width: 24px;
+    height: 24px;
+    opacity: initial;
+    pointer-events: all;
+}
+.container input[type=range]{
+    border:0px;
+}
+.container select {
+    height: 28px;
+}
+.container select[multiple] {
+    height: 56px;
+}
+.container code {
+    font-size: smaller;
+}
+
+.calculator input[type=number],
+.calculator select {
+    width: 50px;
 }
