@@ -39,7 +39,7 @@ namespace SiteEngine.TagHelpers
                     }
                 }
                 content = sb.ToString();
-                content = HttpUtility.HtmlDecode(content);
+                //content = HttpUtility.HtmlDecode(content);
             }
 
             var formatted = Markdig.Markdown.ToHtml(content);// mark.Transform(content);
